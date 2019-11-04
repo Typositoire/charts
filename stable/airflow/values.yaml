@@ -248,6 +248,8 @@ web:
     timeoutSeconds: 1
     successThreshold: 1
     failureThreshold: 5
+  
+  probesHttpHeaders: []
 
 
   ## Support Node, affinity and tolerations for web pod assignment

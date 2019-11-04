@@ -159,6 +159,13 @@ spec:
               path: "{{ .Values.ingress.web.path }}/health"
               {{- end }}
               port: web
+              {{- if .Values.web.probesHttpHeaders }}
+              httpHeaders:
+              {{- range .Values.web.probesHttpHeaders }}
+              - name: {{ .name }}
+                value: {{ .value }}
+              {{- end }}
+              {{- end }}
             ## Keep 6 minutes the delay to allow clean wait of postgres and redis containers
             initialDelaySeconds: {{ .Values.web.initialDelaySeconds }}
             periodSeconds: {{ .Values.web.livenessProbe.periodSeconds }}
@@ -170,6 +177,13 @@ spec:
             httpGet:
               path: "{{ .Values.ingress.web.path }}/health"
               port: web
+              {{- if .Values.web.probesHttpHeaders }}
+              httpHeaders:
+              {{- range .Values.web.probesHttpHeaders }}
+              - name: {{ .name }}
+                value: {{ .value }}
+              {{- end }}
+              {{- end }}
             initialDelaySeconds: {{ .Values.web.initialDelaySeconds }}
             periodSeconds: {{ .Values.web.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.web.readinessProbe.timeoutSeconds }}
